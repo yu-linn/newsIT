@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>newsIT</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="/css/style.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Tangerine">
+
+        <link rel="icon" href="favicon.png">
+    </head>
+
+    <body>
+      <header>
+        <span>news <b>IT</b></span>
+        <span><%= fullname %> </span>
+      </header>
+      <div id="overlay" onclick="off()"></div>
+      <div id="info"></div>
+      <div id="openSide"><img src="ic_menu_white.png" width="40"></div>
+      <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+      <input name="topic" id="searchBar" type="text" placeholder="Search topic" value=""></input>
+    
+    <div class="loginClass" hidden="true">
+    <div class="loginContent">
+      <h1 id="loginHeader">Login</h1>
+
+      <form class="form" action="/login" method="post">
+        <input  name="username" type="text" id="username" placeholder="Username"  required/>
+        <input  name="password" type="password" id="password" placeholder="Password" required />
+        <input type="submit" id="loginSubmit" value="LOGIN"/>
+      </form>
+    </div>
+    </div>
+    
+    <div class="signupClass" hidden="true">
+   <div class="signupContent">
+      <h1>Register</h1>
+
+      <form class="form" action="/signup" method="post">
+
+        <input name="fullname" type="text" id="nameText" placeholder="Full Name" required />
+        <input name="email" type="text" id="email" placeholder="Email" required />
+        <input name="username" type="text" id="usernameText" placeholder="Username" required />
+        <input name="password" type="password"  placeholder="Password" required />
+        <input type="submit" id="signupSubmit" value="Submit" class="btn btn-default"/>
+
+      </form>
+      <h1 id="userText">Username is already taken.</h1>
+      <h1 id="allFields">All Fields must be filled. </h1>
+      
+    </div>
+    </div>
+    
+    <div id="openSearch"> <img src="ic_search_white.png" width="40"> </div>
+      <div id="Sidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn">&times;</a>
+      <a href="#search" id="search_button">Search</a>
+      <a href="#signup" id="signup_button">Sign Up</a>
+      <a href="#login" id="login_button">Login</a>
+    </div>
+
+    <h3><b>Top Headlines:</b>
+    </h3>
+    <ul class="list-group" id="listTopics" style="display: none;">
+      <% for (let i = 0; i < savedTopics.length; i++) { %>
+        <form class="deleteTopicForm" action="/topic" method="put" target="dummyframe">
+          <button class='loadSaved' type="button"><%= savedTopics[i] %></button>
+          <input name="topic" type="text" style="display:none" value=<%= savedTopics[i] %>></input>
+          <input type="submit" class="deleteTopic" value="delete"></input>
+        </form>
+      <% } %>
+    </ul>
+    <input id="inputDays" name="days" type="number" min="1" max="15" placeholder="number of days ago" hidden="true"/>
+    <div id="graph"></div>
+    <div id="articleContents" display="block">
+      <div id="advanced_search">advanced search</div>
+      <div class="articles"></div>
+    </div>
+    <div id="search-options" class="panel panel-default">
+      <form>
+          <li><label>
+            sort by: 
+            <select id="sort-by">
+            <option value="publishedAt">Date</option>
+            <option value="relevancy">Relevancy</option>
+            <option value="popularity">Popularity</option>
+          </select>
+          </label>
+      </li>
+      <li>
+        <label>
+            language: 
+          <select id="language">
+            <option value=en>English</option>
+            <option value=ar>Arabic</option>
+            <option value=de>German</option>
+              <option value=es>Spanish</option>
+          <option value=fr>French</option>
+          <option value=it>Italian</option>
+          <option value=zh>Chinese</option>
+        </select>
+          </label>
+      </li>
+      <li>
+          <label>
+            limit:
+            <input id="limit" size="18" type="text" value=""></input>
+          </label>
+      </li>
+      </form>
+    </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="/js/main.js"></script>
+    </body>
+
+</html>
